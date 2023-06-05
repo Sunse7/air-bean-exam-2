@@ -19,22 +19,13 @@ const { uuid } = require("uuidv4");
 const express = require("express");
 const jwt = require('jsonwebtoken');
 const app = express();
+const menuRouter = require('./routes/menuRoute');
 
 const port = 5000;
 
 app.use(express.json());
 
-app.get("/api/menu", async (req, res) => {
-    try {
-        res.status(200).json({ success: true, data: await getAllMenuItems() });
-    } catch (err) {
-        res.status(500).json({
-            success: false,
-            message: "Could not fetch from database",
-            error: err.code,
-        });
-    }
-});
+app.use('/api/menu', menuRouter);
 
 app.post(
     "/api/order/:userId",
