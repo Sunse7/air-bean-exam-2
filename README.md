@@ -44,4 +44,4 @@ http://localhost:5000/api/order/status/{orderNr}
 ```
 
 ## Created by:
-### Rickard, Martina, Charlotte, Berat
+### Charlotte
