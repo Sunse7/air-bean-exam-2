@@ -17,6 +17,7 @@ const { getAllMenuItems } = require("./models/menu");
 const { saveToOrders, findOrdersByUserId } = require("./models/orders");
 const { uuid } = require("uuidv4");
 const express = require("express");
+const jwt = require('jsonwebtoken');
 const app = express();
 
 const port = 5000;
