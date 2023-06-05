@@ -9,4 +9,12 @@ async function findMenuItemById(id) {
     return await menuDb.find({ _id: id });
 }
 
-module.exports = { getAllMenuItems, findMenuItemById }
+async function updateMenuItemById(id) {
+    // return await menuDb. nått
+}
+
+async function deleteMenuItemById(id) {
+    return await menuDb.remove({ _id: id });
+}
+
+module.exports = { getAllMenuItems, findMenuItemById, updateMenuItemById, deleteMenuItemById }
