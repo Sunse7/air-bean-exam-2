@@ -20,12 +20,15 @@ const express = require("express");
 const jwt = require('jsonwebtoken');
 const app = express();
 const menuRouter = require('./routes/menuRoute');
+const campaignRouter = require('./routes/campaignRoute');
 
 const port = 5000;
 
 app.use(express.json());
 
 app.use('/api/menu', menuRouter);
+
+app.use('/api/campaign', campaignRouter)
 
 app.post(
     "/api/order/:userId",
@@ -137,5 +140,5 @@ app.get(
 );
 
 app.listen(port, () => {
-    console.log("Server listening on " + port);
+    console.log("Server listening on port", port);
 });
