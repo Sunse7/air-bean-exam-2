@@ -17,8 +17,8 @@ async function addNewMenuItem(item) {
     await menuDb.insert(item);
 }
 
-async function updateMenuItemById(id) {
-    // return await menuDb.update
+async function updateMenuItemById(id, itemToUpdate) {
+    return await menuDb.update({ _id: id }, { $set: { price: itemToUpdate }});
 }
 
 async function deleteMenuItemById(id) {
