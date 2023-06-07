@@ -5,7 +5,7 @@ const { getAllMenuItems, addNewMenuItem, deleteMenuItemById, findMenuItemById } 
 // /api/menu
 router.get('/', async (req, res) => {
     try {
-        res.status(200).json({ success: true, data: await getAllMenuItems() });
+        res.json({ success: true, data: await getAllMenuItems() });
     } catch (err) {
         res.status(500).json({
             success: false,
@@ -33,16 +33,16 @@ router.put('/update/:id', async (req, res) => {
 
 router.delete('/delete/:id', async (req, res) => {
     const id = req.params.id;
-    const foundItem = await findMenuItemById(id); // Gets a list of matches
-    console.log('found item', foundItem[0]);
-    if(foundItem) { // Something else in if
-        console.log('FOUND');
+    const foundItem = await findMenuItemById(id); // Gets one item
+    // console.log('found item', foundItem);
+
+    if(foundItem) { 
+        await deleteMenuItemById(id);
+        res.json({ success: true, message: 'Deleted item' });
     }
     else {
-        console.log('NOT FOUND');
+        res.status(404).json({ success: false, message: 'Id not found' });
     }
-    // const data = await deleteMenuItemById(id);
-    res.json({ success: true, message: 'Deleted item' });
 });
 
 module.exports = router;
