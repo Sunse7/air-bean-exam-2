@@ -69,6 +69,10 @@ async function checkPasswordMatch(req, res, next) {
     }
 }
 
+function checkAdminRole(req, res, next) {
+    
+}
+
 module.exports = {
     checkPasswordMatch,
     checkPasswordSecurity,
