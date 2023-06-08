@@ -1,6 +1,7 @@
 const { Router } = require('express');
 const router = Router();
-const { getAllMenuItems, addNewMenuItem, deleteMenuItemById, findMenuItemById } = require('../models/menu');
+const { getAllMenuItems, addNewMenuItem, deleteMenuItemById, findMenuItemById, updateMenuItemById } = require('../models/menu');
+const { verifyToken } = require('../middlewares/jwt');
 
 // /api/menu
 router.get('/', async (req, res) => {
@@ -15,10 +16,10 @@ router.get('/', async (req, res) => {
     }
 });
 
-router.post('/add', async (req, res) => {
+router.post('/add', verifyToken, async (req, res) => {
     const body = req.body;
 
-    //TODO: Make middleware
+    //TODO: Make middleware, put it on add and update
     if(body.hasOwnProperty('title') && body.hasOwnProperty('desc') && body.hasOwnProperty('price')) {
 
         if(body.title.length > 3 && body.desc.length > 3 && body.price > 0){
@@ -37,16 +38,29 @@ router.post('/add', async (req, res) => {
     } else {
         res.status(400).json({ success: false, message: 'Must contain title, desc and price' });
     }
-
 });
 
-router.put('/update/:id', async (req, res) => {
+router.put('/update', verifyToken, async (req, res) => {
+    try {
+        const id = req.body.id;
+        const modifiedAt = new Date().toISOString();
+        const newValues = {
+        title: req.body.title,
+        desc: req.body.desc,
+        price: req.body.price,
+    }
 
+    await updateMenuItemById(id, newValues, modifiedAt);
+    res.json({ success: true });
+    } catch (err) {
+        res.status(500).json({ success: false, message: "Error occurred while updating menu", error: err.code,})
+    }
+    
 });
 
-router.delete('/delete/:id', async (req, res) => {
+router.delete('/delete/:id', verifyToken, async (req, res) => {
     const id = req.params.id;
-    const foundItem = await findMenuItemById(id); // Gets one item
+    const foundItem = await findMenuItemById(id); // Gets one item. Change name?
 
     if(foundItem) { 
         await deleteMenuItemById(id);
