@@ -12,7 +12,7 @@ const { checkProducts } = require("./middlewares/checkProducts");
 const { validateOrderNr } = require("./middlewares/validateOrderNr");
 const { calcDeliveryTime } = require("./middlewares/calcDeliveryTime");
 const { calculateTotalPrice } = require("./middlewares/calculateTotalPrice");
-const { createUser } = require("./models/users");
+const { createUser, findUserByUsername } = require("./models/users");
 const { getAllMenuItems } = require("./models/menu");
 const { saveToOrders, findOrdersByUserId } = require("./models/orders");
 const { uuid } = require("uuidv4");
@@ -21,6 +21,7 @@ const jwt = require('jsonwebtoken');
 const app = express();
 const menuRouter = require('./routes/menuRoute');
 const campaignRouter = require('./routes/campaignRoute');
+const generateToken = require("./middlewares/jwt");
 
 const port = 5000;
 
@@ -72,6 +73,7 @@ app.post(
             const user = {
                 username: req.body.username,
                 password: req.body.password,
+                role: req.body.role,
                 userId: uuid(),
             };
             await createUser(user); // Adds user to database
@@ -92,7 +94,15 @@ app.post(
     checkPasswordMatch,
     async (req, res) => {
         try {
-            res.json({ success: true, isLoggedIn: true });
+            const user = findUserByUsername(req.body.username);
+            const payload = {
+                id: user._id,
+                username: user.username,
+                role: user.role
+            }
+            const token = generateToken(payload);
+            res.json({ success: true, isLoggedIn: true, token });
+
         } catch (err) {
             res.status(500).json({
                 success: false,
