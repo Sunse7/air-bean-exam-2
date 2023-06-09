@@ -1,53 +1,54 @@
 # Air bean examination 2
 
 
-### Login & Signup
+### Login & Signup - signup with role, login without role
 ```
 {
-	"username": "Azmodan",
-	"password": "mjaumjau",
-	"role": "user"
+    "username": "Azmodan",
+    "password": "mjaumjau",
+    "role": "user"
 }
 
 {
-	"username": "Lucky",
-	"password": "voffvoff",
-	"role": "admin"
+    "username": "Lucky",
+    "password": "voffvoff",
+    "role": "admin"
 }
 ```
-
-### Place order :
+### Add to menu - token in headers
 ```
 {
-  "products": [
-    {
-      "_id": "srUZ3eapAit6anvI",
-      "title": "Latte Macchiato",
-      "price": 49,
-      "quantity": 3
-    },
-    {
-      "_id": "jdhW6ClobWK7pXlL",
-      "title": "Caffè Doppio",
-      "price": 49,
-      "quantity": 2
-    }
-  ]
+    "title": "Pupcakes",
+    "desc": "Smarrig leversmak",
+    "price": 35
 }
 ```
-
-### Order history
+### Update menu item - token in headers
 ```
-userId = c12664fc-2b73-4237-a35c-de47d49bed8e
-
-http://localhost:5000/api/user/{userId}/history
+{
+    "title": "Gott kaffe",
+    "desc": "Oj så gott!",
+    "price": 9000,
+    "id": "0r37aGoFvsWUCzad"
+}
 ```
-
-### Order status
+### Delete menu item - token in headers 
 ```
-orderNr = a379dc28-c16e-410c-a578-4b08226c7307
-
-http://localhost:5000/api/order/status/{orderNr}
+http://localhost:5000/api/menu/delete/{menu id}
+```
+### Add campaign
+```
+{
+    "products": [
+        {
+            "_id": "cw01DxvL60yTApq5"
+        },
+        {
+            "_id": "bH7DC60FtvAgWoXn"
+        }
+    ],
+    "price": 40
+}
 ```
 
 ## Created by:
