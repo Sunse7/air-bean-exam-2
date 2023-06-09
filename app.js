@@ -13,15 +13,13 @@ const { validateOrderNr } = require("./middlewares/validateOrderNr");
 const { calcDeliveryTime } = require("./middlewares/calcDeliveryTime");
 const { calculateTotalPrice } = require("./middlewares/calculateTotalPrice");
 const { createUser, findUserByUsername } = require("./models/users");
-const { getAllMenuItems } = require("./models/menu");
 const { saveToOrders, findOrdersByUserId } = require("./models/orders");
 const { uuid } = require("uuidv4");
 const express = require("express");
-const jwt = require('jsonwebtoken');
 const app = express();
 const menuRouter = require('./routes/menuRoute');
 const campaignRouter = require('./routes/campaignRoute');
-const generateToken = require("./middlewares/jwt");
+const { generateToken } = require("./middlewares/jwt");
 
 const port = 5000;
 
