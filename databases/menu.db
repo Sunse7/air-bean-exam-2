@@ -1,8 +1,15 @@
+{"title":"Gott kaffe","desc":"Oj så gott!","price":9000,"createdAt":"2023-06-07T11:36:46.131Z","_id":"0r37aGoFvsWUCzad","modifiedAt":"2023-06-08T10:34:24.342Z"}
 {"title":"Kaffe Latte","desc":"Bryggd på månadens bönor.","price":54,"_id":"9XQAPoarvCkRUhz2"}
+{"title":"Äckligt kaffe","desc":"Blä usch","price":1,"createdAt":{"$$date":1686136354168},"_id":"9rS30JWMfkz8y1ho"}
+{"title":"Äckligt kaffe","desc":"Blä usch","price":1,"createdAt":{"$$date":1686136159068},"_id":"Ayjb9uPDo8yh1Asc"}
+{"title":"Äckligt kaffe","desc":"Blä","price":0,"createdAt":{"$$date":1686136082530},"_id":"CEm4RR0ngfIFRd58"}
+{"title":"Äckligt kaffe","desc":"Blä","price":1,"createdAt":{"$$date":1686136139185},"_id":"EfRu7yYTZrMEb68g"}
 {"title":"Cortado","desc":"Bryggd på månadens bönor.","price":39,"_id":"Env7zeTHBxyW7W1z"}
+{"title":"Äckligt kaffe","desc":"Blä","price":0,"createdAt":{"$$date":1686136123271},"_id":"Rbkv5mYl9T9MXK4e"}
 {"title":"Cappuccino","desc":"Bryggd på månadens bönor.","price":49,"_id":"XOgx0eJtJHYnBpzt"}
 {"title":"Semla","desc":"En fastlagsbulle i sin rätta form.","price":50,"_id":"bH7DC60FtvAgWoXn"}
 {"title":"Bryggkaffe","desc":"Bryggd på månadens bönor.","price":39,"_id":"cw01DxvL60yTApq5"}
 {"title":"Gustav Adolfsbakelse","desc":"En kunglig bakelse.","price":50,"_id":"dkYIjhT9nZhYnT6H"}
 {"title":"Caffè Doppio","desc":"Bryggd på månadens bönor.","price":49,"_id":"jdhW6ClobWK7pXlL"}
+{"title":"Äckligt kaffe","desc":"Blä","price":5,"createdAt":{"$$date":1686136010325},"_id":"o79HMJbP1zoM9EDr"}
 {"title":"Latte Macchiato","desc":"Bryggd på månadens bönor.","price":49,"_id":"srUZ3eapAit6anvI"}

@@ -94,13 +94,19 @@ app.post(
     checkPasswordMatch,
     async (req, res) => {
         try {
-            const user = findUserByUsername(req.body.username);
+            console.log('Inside login');
+            const username = req.body.username;
+            console.log(username);
+            const user = await findUserByUsername(req.body.username);
+            console.log('USER: ', user);
             const payload = {
                 id: user._id,
                 username: user.username,
                 role: user.role
             }
+            console.log('payload', payload);
             const token = generateToken(payload);
+            console.log('token', token);
             res.json({ success: true, isLoggedIn: true, token });
 
         } catch (err) {

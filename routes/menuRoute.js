@@ -2,6 +2,7 @@ const { Router } = require('express');
 const router = Router();
 const { getAllMenuItems, addNewMenuItem, deleteMenuItemById, findMenuItemById, updateMenuItemById } = require('../models/menu');
 const { verifyToken } = require('../middlewares/jwt');
+const allowedRoles = ['admin'];
 
 // /api/menu
 router.get('/', async (req, res) => {
@@ -16,7 +17,7 @@ router.get('/', async (req, res) => {
     }
 });
 
-router.post('/add', verifyToken, async (req, res) => {
+router.post('/add', verifyToken(allowedRoles), async (req, res) => {
     const body = req.body;
 
     //TODO: Make middleware, put it on add and update
@@ -40,7 +41,7 @@ router.post('/add', verifyToken, async (req, res) => {
     }
 });
 
-router.put('/update', verifyToken, async (req, res) => {
+router.put('/update', verifyToken(allowedRoles), async (req, res) => {
     try {
         const id = req.body.id;
         const modifiedAt = new Date().toISOString();
@@ -58,7 +59,7 @@ router.put('/update', verifyToken, async (req, res) => {
     
 });
 
-router.delete('/delete/:id', verifyToken, async (req, res) => {
+router.delete('/delete/:id', verifyToken(allowedRoles), async (req, res) => {
     const id = req.params.id;
     const foundItem = await findMenuItemById(id); // Gets one item. Change name?
 
