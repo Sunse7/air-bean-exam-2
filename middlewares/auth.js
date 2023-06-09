@@ -1,4 +1,5 @@
 const { getAllUsers } = require("../models/users");
+const { comparePassword } = require("./bcrypt");
 
 // For signup
 async function checkUsernameAvailabilitiy(req, res, next) {
@@ -58,7 +59,9 @@ async function checkPasswordMatch(req, res, next) {
     const { username, password } = req.body;
     const usersList = await getAllUsers();
     const matchedUser = usersList.find((user) => user.username === username);
-    if (matchedUser.password === password) {
+    const isCorrect = await comparePassword(password, matchedUser.password)
+    if (isCorrect) {
+        console.log('YAY!!');
         next();
     } else {
         res.json({
@@ -67,10 +70,6 @@ async function checkPasswordMatch(req, res, next) {
             message: "Incorrect password, try again!",
         });
     }
-}
-
-function checkAdminRole(req, res, next) {
-    
 }
 
 module.exports = {

@@ -20,6 +20,7 @@ const app = express();
 const menuRouter = require('./routes/menuRoute');
 const campaignRouter = require('./routes/campaignRoute');
 const { generateToken } = require("./middlewares/jwt");
+const { hashPassword } = require("./middlewares/bcrypt");
 
 const port = 5000;
 
@@ -68,9 +69,11 @@ app.post(
     checkPasswordSecurity,
     async (req, res) => {
         try {
+            const password = req.body.password;
+            const hashedPassord = await hashPassword(password);
             const user = {
                 username: req.body.username,
-                password: req.body.password,
+                password: hashedPassord,
                 role: req.body.role,
                 userId: uuid(),
             };
@@ -92,19 +95,13 @@ app.post(
     checkPasswordMatch,
     async (req, res) => {
         try {
-            console.log('Inside login');
-            const username = req.body.username;
-            console.log(username);
             const user = await findUserByUsername(req.body.username);
-            console.log('USER: ', user);
             const payload = {
                 id: user._id,
                 username: user.username,
                 role: user.role
             }
-            console.log('payload', payload);
             const token = generateToken(payload);
-            console.log('token', token);
             res.json({ success: true, isLoggedIn: true, token });
 
         } catch (err) {
