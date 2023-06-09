@@ -4,8 +4,15 @@
 ### Login & Signup
 ```
 {
-  "username": "Berat1234",
-  "password": "12345678"
+	"username": "Azmodan",
+	"password": "mjaumjau",
+	"role": "user"
+}
+
+{
+	"username": "Lucky",
+	"password": "voffvoff",
+	"role": "admin"
 }
 ```
 
