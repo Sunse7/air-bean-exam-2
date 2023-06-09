@@ -3,6 +3,7 @@
 {"title":"Kaffe Latte","desc":"Bryggd på månadens bönor.","price":54,"_id":"9XQAPoarvCkRUhz2"}
 {"title":"Äckligt kaffe","desc":"Blä usch","price":1,"createdAt":{"$$date":1686136159068},"_id":"Ayjb9uPDo8yh1Asc"}
 {"title":"Cortado","desc":"Bryggd på månadens bönor.","price":39,"_id":"Env7zeTHBxyW7W1z"}
+{"title":"Pupcakes","desc":"Smarrig leversmak","price":35,"createdAt":"2023-06-09T11:47:16.098Z","_id":"Q2uWUtnNC44B5AqK"}
 {"title":"Tråkigt kaffe","desc":"Om du bara är ute efter en koffeinkick","price":20,"createdAt":"2023-06-09T09:06:21.821Z","_id":"X4NrAogG5BmSGG2x"}
 {"title":"Cappuccino","desc":"Bryggd på månadens bönor.","price":49,"_id":"XOgx0eJtJHYnBpzt"}
 {"title":"Semla","desc":"En fastlagsbulle i sin rätta form.","price":50,"_id":"bH7DC60FtvAgWoXn"}

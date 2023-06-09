@@ -3,19 +3,21 @@ const { checkProducts } = require('../middlewares/checkProducts');
 const { saveCampaign } = require('../models/campaign');
 const router = Router();
 
-// /api/campaign
 router.post('/add', checkProducts, async (req, res) => {
-    const campaignProducts = req.body.products;
-    const campaignPrice = req.body.price;
-
-    const newCampaign = {
-        products: campaignProducts,
-        price: campaignPrice
+    try {
+        const campaignProducts = req.body.products;
+        const campaignPrice = req.body.price;
+    
+        const newCampaign = {
+            products: campaignProducts,
+            price: campaignPrice
+        }
+    
+        await saveCampaign(newCampaign);
+        res.status(201).json({ success: true });
+    } catch (err) {
+        res.status(500).json({ success: false, message: "Error occurred while adding campaign", error: err.code,});
     }
-
-    await saveCampaign(newCampaign);
-    res.json({ success: true });
-   
 });
 
 module.exports = router;

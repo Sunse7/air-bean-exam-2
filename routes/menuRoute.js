@@ -2,9 +2,9 @@ const { Router } = require('express');
 const router = Router();
 const { getAllMenuItems, addNewMenuItem, deleteMenuItemById, findMenuItemById, updateMenuItemById } = require('../models/menu');
 const { verifyToken } = require('../middlewares/jwt');
+const { validateProductData } = require('../middlewares/validateProductData');
 const allowedRoles = ['admin'];
 
-// /api/menu
 router.get('/', async (req, res) => {
     try {
         res.json({ success: true, data: await getAllMenuItems() });
@@ -17,31 +17,23 @@ router.get('/', async (req, res) => {
     }
 });
 
-router.post('/add', verifyToken(allowedRoles), async (req, res) => {
-    const body = req.body;
-
-    //TODO: Make middleware, put it on add and update
-    if(body.hasOwnProperty('title') && body.hasOwnProperty('desc') && body.hasOwnProperty('price')) {
-
-        if(body.title.length > 3 && body.desc.length > 3 && body.price > 0){
-            const menuItem = {
-                title: body.title,
-                desc: body.desc,
-                price: body.price,
-                createdAt: new Date().toISOString()
-            }
-            const data = await addNewMenuItem(menuItem);
-            res.status(201).json({ success: true, data: data });
-        } else {
-            res.status(400).json({ success: false, message: 'Fields can not be empty' });
+router.post('/add', verifyToken(allowedRoles), validateProductData, async (req, res) => {
+    try {
+        const body = req.body;
+        const menuItem = {
+            title: body.title,
+            desc: body.desc,
+            price: body.price,
+            createdAt: new Date().toISOString()
         }
-
-    } else {
-        res.status(400).json({ success: false, message: 'Must contain title, desc and price' });
+        const data = await addNewMenuItem(menuItem);
+        res.status(201).json({ success: true, data: data });
+    } catch (err) {
+        res.status(500).json({ success: false, message: "Error occurred while adding menu item", error: err.code,});
     }
 });
 
-router.put('/update', verifyToken(allowedRoles), async (req, res) => {
+router.put('/update', verifyToken(allowedRoles), validateProductData, async (req, res) => {
     try {
         const id = req.body.id;
         const modifiedAt = new Date().toISOString();
@@ -54,21 +46,25 @@ router.put('/update', verifyToken(allowedRoles), async (req, res) => {
     await updateMenuItemById(id, newValues, modifiedAt);
     res.json({ success: true });
     } catch (err) {
-        res.status(500).json({ success: false, message: "Error occurred while updating menu", error: err.code,})
+        res.status(500).json({ success: false, message: "Error occurred while updating menu", error: err.code,});
     }
-    
 });
 
 router.delete('/delete/:id', verifyToken(allowedRoles), async (req, res) => {
-    const id = req.params.id;
-    const foundItem = await findMenuItemById(id); // Gets one item. Change name?
-
-    if(foundItem) { 
-        await deleteMenuItemById(id);
-        res.json({ success: true, message: 'Deleted item' });
-    }
-    else {
-        res.status(404).json({ success: false, message: 'Id not found' });
+    try {
+        const id = req.params.id;
+        const foundItem = await findMenuItemById(id);
+    
+        if(foundItem) { 
+            await deleteMenuItemById(id);
+            res.json({ success: true, message: 'Deleted item' });
+        }
+        else {
+            res.status(404).json({ success: false, message: 'Id not found' });
+        }
+        
+    } catch (err) {
+        res.status(500).json({ success: false, message: "Error occurred while deleting menu item", error: err.code,});
     }
 });
 

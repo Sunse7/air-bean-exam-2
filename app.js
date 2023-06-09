@@ -102,7 +102,7 @@ app.post(
                 role: user.role
             }
             const token = generateToken(payload);
-            res.json({ success: true, isLoggedIn: true, token });
+            res.json({ success: true, token });
 
         } catch (err) {
             res.status(500).json({

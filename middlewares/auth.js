@@ -61,7 +61,6 @@ async function checkPasswordMatch(req, res, next) {
     const matchedUser = usersList.find((user) => user.username === username);
     const isCorrect = await comparePassword(password, matchedUser.password)
     if (isCorrect) {
-        console.log('YAY!!');
         next();
     } else {
         res.json({
